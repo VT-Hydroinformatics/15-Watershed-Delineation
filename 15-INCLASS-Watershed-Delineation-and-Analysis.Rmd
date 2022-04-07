@@ -18,8 +18,6 @@ The following activity is available as a template github repository at the follo
 Check out the list of packages for this exercise. If you have trouble getting rayshader or rgl going, don't fret too much, these are for the 3d watershed visualization at the end that is basically just something fun to check out.
 
 ```{r, message=FALSE, warning=FALSE}
-#install.packages("whitebox", repos="http://R-Forge.R-project.org")
-
 library(tidyverse)
 library(raster)
 library(sf)
@@ -89,7 +87,7 @@ Next, we will generate a hillshade to aid in visualization and then plot it to b
 
 This step is review from last time as well, but it is important to point out that it is crucial for this analysis. Basically we are looking upslope for all DEM cells that drain to a specific spot, so if there are any dead-ends, we will not get an accurate watershed.
 
-In order to be sure all of our terrain drains downlope, fill single cell pits and then breach any other depressions using the wbt_breach_depressions_least_cost() function from wbt. 
+In order to be sure all of our terrain drains downlope, we will breach depressions using the wbt_breach_depressions_least_cost() tool with a distance of 5 and then fill any remaining depressions with wbt_fill_depressions_wang_and_liu() 
 
 There is a much more in-depth discussion of why we are doing this in the previous chapter.
 
@@ -125,13 +123,6 @@ We will follow the following process to get our pour points set up:
 
 Perform the first two operations above in this chunk, the pour points are given. I just grabbed them from google earth.
 ```{r}
-ppoints <- tribble(
-          ~Lon, ~Lat,
-          -80.482778, 37.240504,
-          -80.474464, 37.242990,
-          -80.471506, 37.244512
-          )
-
 
 ```
 

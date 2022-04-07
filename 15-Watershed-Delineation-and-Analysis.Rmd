@@ -18,8 +18,6 @@ The following activity is available as a template github repository at the follo
 Check out the list of packages for this exercise. If you have trouble getting rayshader or rgl going, don't fret too much, these are for the 3d watershed visualization at the end that is basically just something fun to check out.
 
 ```{r, message=FALSE, warning=FALSE}
-#install.packages("whitebox", repos="http://R-Forge.R-project.org")
-
 library(tidyverse)
 library(raster)
 library(sf)
@@ -107,22 +105,23 @@ tm_shape(hillshade)+
 
 This step is review from last time as well, but it is important to point out that it is crucial for this analysis. Basically we are looking upslope for all DEM cells that drain to a specific spot, so if there are any dead-ends, we will not get an accurate watershed.
 
-In order to be sure all of our terrain drains downlope, fill single cell pits and then breach any other depressions using the wbt_breach_depressions_least_cost() function from wbt. 
+In order to be sure all of our terrain drains downlope, we will breach depressions using the wbt_breach_depressions_least_cost() tool with a distance of 5 and then fill any remaining depressions with wbt_fill_depressions_wang_and_liu()
 
 There is a much more in-depth discussion of why we are doing this in the previous chapter.
 
 From now on in the analysis *be careful* to use the filled and breached DEM.
 
 ```{r}
-wbt_fill_single_cell_pits(
-                    dem = "McDonaldHollowDEM/brushDEMsm_5m_crs.tif",
-                    output = "McDonaldHollowDEM/bmstationdem_filled.tif")
-
 wbt_breach_depressions_least_cost(
-                     dem = "McDonaldHollowDEM/bmstationdem_filled.tif",
-                     output = "McDonaldHollowDEM/bmstationdem_filled_breached.tif",
-                     dist = 5,
-                     fill = TRUE)
+  dem = "McDonaldHollowDEM/brushDEMsm_5m_crs.tif",
+  output = "McDonaldHollowDEM/bmstationdem_breached.tif",
+  dist = 5,
+  fill = TRUE)
+
+wbt_fill_depressions_wang_and_liu(
+  dem = "McDonaldHollowDEM/bmstationdem_breached.tif",
+  output = "McDonaldHollowDEM/bmstationdem_filled_breached.tif"
+)
 ```
 
 ## Create flow accumulation and pointer grids
@@ -283,7 +282,7 @@ raymat <- ray_shade(wsmat, sunable = 115)
 #render
 wsmat %>%
   sphere_shade(texture = "desert") %>%
-  add_shadow(raymat) %>%
+  #add_shadow(raymat) %>%
   plot_3d(wsmat, zscale = 10, fov = 0, theta = 135, zoom = 0.75, phi = 45,
           windowsize = c(750,750))
 
