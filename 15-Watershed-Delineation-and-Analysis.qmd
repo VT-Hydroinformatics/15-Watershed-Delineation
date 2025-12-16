@@ -314,3 +314,4 @@ rgl::close3d()
 knitr::include_graphics(watershed_3d_plot_fp)
 
 ```
+[View interactive plot here](images/watershed_3d_plot.html)
