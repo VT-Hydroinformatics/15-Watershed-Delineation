@@ -108,6 +108,7 @@ tm_shape(dem)+
   tm_raster(style = "cont", palette = "PuOr", legend.show = TRUE)+
   tm_scale_bar()
 ```
+**[View the interactive plot here](images/dem-plot.html)**
 
 ## Generate a hillshade
 
@@ -124,6 +125,7 @@ tm_shape(hillshade)+
   tm_raster(style = "cont",palette = "-Greys", legend.show = FALSE)+
   tm_scale_bar()
 ```
+**[View the interactive plot here](images/hillshade-plot.html)**
 
 ## Prepare DEM for Hydrology Analyses
 
@@ -218,6 +220,7 @@ tm_shape(streams)+
 tm_shape(pp)+
   tm_dots(col = "red")
 ```
+**[View the interactive plot here](images/pour_points_plot.html)**
 
 ## Delineate watersheds
 
@@ -241,6 +244,7 @@ tm_shape(ws)+
 tm_shape(pp)+
   tm_dots(col = "red")
 ```
+**[View the interactive plot here](images/watershed_plot.html)**
 
 ## Convert watersheds to shapefiles
 
@@ -258,6 +262,7 @@ tm_shape(hillshade)+
 tm_shape(ws1shp)+
   tm_borders(col = "red")
 ```
+**[View the interactive plot here](images/watershed_shp_plot.html)**
 
 ## Extract data based on watershed outline
 
@@ -314,4 +319,4 @@ rgl::close3d()
 knitr::include_graphics(watershed_3d_plot_fp)
 
 ```
-[View interactive plot here](images/watershed_3d_plot.html)
+**[View interactive plot here](images/watershed_3d_plot.html)**
