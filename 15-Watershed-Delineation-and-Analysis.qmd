@@ -1,8 +1,23 @@
 ---
-title: "15 - Watershed Delineation"
+title: "Chapter 15: Watershed Delineation"
+date: today
+author:
+  - name: JP Gannon
+    orcid: 0000-0002-4595-3214
+    url: https://jpgannon.github.io/
+    affiliation: 
+      - name: Virginia Tech
+        url: https://www.vt.edu/
 format:
   html: 
     self-contained: true
+  ipynb:
+    nb-frontmatter: true
+    jupyter:
+      kernel: ir
+      ipynb-shell-interactivity: all
+execute: 
+  enabled: true
 ---
 
 # Geospatial R Raster - Watershed Delineation {#rgeowatersheds}
@@ -93,6 +108,7 @@ tm_shape(dem)+
   tm_raster(style = "cont", palette = "PuOr", legend.show = TRUE)+
   tm_scale_bar()
 ```
+**[View the interactive plot here](images/dem-plot.html)**
 
 ## Generate a hillshade
 
@@ -109,6 +125,7 @@ tm_shape(hillshade)+
   tm_raster(style = "cont",palette = "-Greys", legend.show = FALSE)+
   tm_scale_bar()
 ```
+**[View the interactive plot here](images/hillshade-plot.html)**
 
 ## Prepare DEM for Hydrology Analyses
 
@@ -203,6 +220,7 @@ tm_shape(streams)+
 tm_shape(pp)+
   tm_dots(col = "red")
 ```
+**[View the interactive plot here](images/pour_points_plot.html)**
 
 ## Delineate watersheds
 
@@ -226,6 +244,7 @@ tm_shape(ws)+
 tm_shape(pp)+
   tm_dots(col = "red")
 ```
+**[View the interactive plot here](images/watershed_plot.html)**
 
 ## Convert watersheds to shapefiles
 
@@ -243,6 +262,7 @@ tm_shape(hillshade)+
 tm_shape(ws1shp)+
   tm_borders(col = "red")
 ```
+**[View the interactive plot here](images/watershed_shp_plot.html)**
 
 ## Extract data based on watershed outline
 
@@ -292,7 +312,11 @@ wsmat %>%
   plot_3d(wsmat, zscale = 10, fov = 0, theta = 135, zoom = 0.75, phi = 45,
           windowsize = c(750,750))
 
-#render as html
-rglwidget()
+# Save/display the static image instead of rendering the widget
+watershed_3d_plot_fp <- "images/watershed_3d_plot.png"
+rgl::rgl.snapshot(watershed_3d_plot_fp)
+rgl::close3d()
+knitr::include_graphics(watershed_3d_plot_fp)
 
 ```
+**[View interactive plot here](images/watershed_3d_plot.html)**
