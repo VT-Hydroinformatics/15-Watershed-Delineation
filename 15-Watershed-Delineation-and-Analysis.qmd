@@ -1,22 +1,9 @@
 ---
-title: "Chapter 15: Watershed Delineation"
+title: 'Chapter 15: Watershed Delineation'
 date: today
-author:
-  - name: JP Gannon
-    orcid: 0000-0002-4595-3214
-    url: https://jpgannon.github.io/
-    affiliation: 
-      - name: Virginia Tech
-        url: https://www.vt.edu/
-format:
-  html: 
-    self-contained: true
-  ipynb:
-    nb-frontmatter: true
-    jupyter:
-      kernel: ir
-      ipynb-shell-interactivity: all
-execute: 
+author: JP Gannon
+format: gfm
+execute:
   enabled: true
 ---
 
@@ -39,7 +26,7 @@ The following activity is available as a template github repository at the follo
 
 Check out the list of packages for this exercise. If you have trouble getting rayshader or rgl going, don't fret too much, these are for the 3d watershed visualization at the end that is basically just something fun to check out.
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
 library(tidyverse)
 library(terra)
 library(sf)
@@ -108,6 +95,7 @@ tm_shape(dem)+
   tm_raster(style = "cont", palette = "PuOr", legend.show = TRUE)+
   tm_scale_bar()
 ```
+
 **[View the interactive plot here](images/dem-plot.html)**
 
 ## Generate a hillshade
@@ -125,6 +113,7 @@ tm_shape(hillshade)+
   tm_raster(style = "cont",palette = "-Greys", legend.show = FALSE)+
   tm_scale_bar()
 ```
+
 **[View the interactive plot here](images/hillshade-plot.html)**
 
 ## Prepare DEM for Hydrology Analyses
@@ -220,6 +209,7 @@ tm_shape(streams)+
 tm_shape(pp)+
   tm_dots(col = "red")
 ```
+
 **[View the interactive plot here](images/pour_points_plot.html)**
 
 ## Delineate watersheds
@@ -244,6 +234,7 @@ tm_shape(ws)+
 tm_shape(pp)+
   tm_dots(col = "red")
 ```
+
 **[View the interactive plot here](images/watershed_plot.html)**
 
 ## Convert watersheds to shapefiles
@@ -262,6 +253,7 @@ tm_shape(hillshade)+
 tm_shape(ws1shp)+
   tm_borders(col = "red")
 ```
+
 **[View the interactive plot here](images/watershed_shp_plot.html)**
 
 ## Extract data based on watershed outline
@@ -282,7 +274,6 @@ ggplot() +
   geom_density(WS2, mapping = aes(value, color = "WS2"))+
   geom_density(WS3, mapping = aes(value, color = "WS3"))+
   xlab("Elevation (ft)")
-
 ```
 
 ## BONUS: Make a 3d map of your watershed with rayshader
@@ -317,6 +308,6 @@ watershed_3d_plot_fp <- "images/watershed_3d_plot.png"
 rgl::rgl.snapshot(watershed_3d_plot_fp)
 rgl::close3d()
 knitr::include_graphics(watershed_3d_plot_fp)
-
 ```
+
 **[View interactive plot here](images/watershed_3d_plot.html)**
